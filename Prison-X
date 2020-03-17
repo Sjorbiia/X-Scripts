@@ -5,7 +5,7 @@ local library = loadstring(game:HttpGet("https://pastebin.com/raw/eWKgbdix", tru
 library.options.underlinecolor = "rainbow"
 
 --// Version //--
-local version = "V3.4"
+local version = "V3.5"
 
 --//First Window//--
 local w = library:CreateWindow('Functions')
@@ -2901,12 +2901,99 @@ w8:Dropdown("Custom Weapons", {
    location = _G;
    flag = "ctools";
    list = {
+	   "FE Spear";
 	   "FE Stick";
 	   "FE Brick";
    }
 }, function(new)
 
-if _G.ctools == "FE Stick" then
+if _G.ctools == "FE Spear" then
+
+	workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Hammer"].ITEMPICKUP)
+workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Crude Knife"].ITEMPICKUP)
+
+local plr = game.Players.LocalPlayer
+local tool = plr.Backpack["Hammer"]
+local tool2 = plr.Backpack["Crude Knife"]
+
+tool.GripPos = Vector3.new(0.1,-1,0)
+tool2.GripPos = Vector3.new(0.2, -3.3, 0)
+tool.Name = "SpearP1"
+tool2.Name = "SpearP2"
+
+local k = tool.Handle
+local k2 = tool2.Handle
+
+tool.Part.Name = "Part2"
+
+tool2.Part.Name = "Part1"
+
+tool2.Part.Name = "Part2"
+
+tool.Part:Destroy()
+
+tool2.Part2:Destroy()
+
+local l = Instance.new("Animation",tool)
+l.AnimationId="rbxassetid://218504594"
+
+local l2 = Instance.new("Animation",tool2)
+l2.AnimationId="rbxassetid://218504594"
+
+local m = plr.Character.Humanoid:LoadAnimation(l)
+local m2 = plr.Character.Humanoid:LoadAnimation(l2)
+
+db=true;
+da=false
+
+tool2.Equipped:connect(function()
+
+tool2.Activated:connect(function()
+
+if db == true then 
+        db = false
+    m:Play()
+	m2:Play()
+    wait()
+    da = true
+    db = true
+    wait(0.1)
+    da = false 
+        end 
+    end)
+end)
+k.Touched:connect(function(n)
+
+if da == true then 
+    local o = n.Parent.Humanoid
+    if o ~= nil then 
+        local p = game.Players:FindFirstChild(n.Parent.Name)
+        for j = 1,100 do 
+                game.ReplicatedStorage.meleeEvent:FireServer(p)
+            end 
+        end 
+    end 
+end)
+
+k2.Touched:connect(function(n2)
+
+if da == true then 
+    local o2 = n2.Parent.Humanoid
+    if o2 ~= nil then 
+        local p2 = game.Players:FindFirstChild(n2.Parent.Name)
+        for j2 = 1,100 do 
+                game.ReplicatedStorage.meleeEvent:FireServer(p2)
+            end 
+        end 
+    end 
+end)
+
+wait()
+
+tool.Parent = plr.Character
+tool2.Parent = plr.Character
+
+elseif _G.ctools == "FE Stick" then
 workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Hammer"].ITEMPICKUP)
 
 local plr = game.Players.LocalPlayer
@@ -3008,6 +3095,15 @@ if da == true then
     end 
 end)
 	end
+end) 
+
+w8:Button("Equip Spear", function()
+plr = game.Players.LocalPlayer
+tool = plr.Backpack["SpearP1"]
+tool2 = plr.Backpack["SpearP2"]
+
+tool.Parent = plr.Character
+tool2.Parent = plr.Character
 end)
 
 w6 = library:CreateWindow('Teleports')
