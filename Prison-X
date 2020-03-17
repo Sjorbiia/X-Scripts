@@ -5,7 +5,7 @@ local library = loadstring(game:HttpGet("https://pastebin.com/raw/eWKgbdix", tru
 library.options.underlinecolor = "rainbow"
 
 --// Version //--
-local version = "V3.3"
+local version = "V3.4"
 
 --//First Window//--
 local w = library:CreateWindow('Functions')
@@ -932,7 +932,8 @@ w5:Dropdown("Combat", {
    flag = "combat";
    list = {
        "Super Punch";
-	   "FE Sword";
+	   "FE Stick";
+	   "FE Brick";
    }
 }, function(new)
 
@@ -982,8 +983,108 @@ end
 end
 end)
 
-elseif _G.combat == "FE Sword" then
-local plr=game.Players.LocalPlayer;local tool=Instance.new("Tool",plr.Backpack)tool.GripPos=Vector3.new(0.1,-1,0)tool.Name="Sword"local k=Instance.new("Part",tool)k.Name="Handle"k.Size=Vector3.new(0.4,4,0.4)local l=Instance.new("Animation",tool)l.AnimationId="rbxassetid://218504594"local m=plr.Character.Humanoid:LoadAnimation(l)db=true;da=false;tool.Equipped:connect(function()tool.Activated:connect(function()if db==true then db=false;m:Play()wait()da=true;db=true;wait(0.1)da=false end end)end)k.Touched:connect(function(n)if da==true then local o=n.Parent.Humanoid;if o~=nil then local p=game.Players:FindFirstChild(n.Parent.Name)for j=1,10 do if p.Name~="FunnyVideo15"then game.ReplicatedStorage.meleeEvent:FireServer(p)end end end end end)
+elseif _G.combat == "FE Stick" then
+workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Hammer"].ITEMPICKUP)
+
+local plr = game.Players.LocalPlayer
+local tool = plr.Backpack.Hammer
+
+tool.GripPos = Vector3.new(0.1,-1,0)
+tool.Name = "Stick"
+
+local k = tool.Handle
+
+tool.Part.Name = "Part2"
+
+tool.Part:Destroy()
+
+local l = Instance.new("Animation",tool)
+l.AnimationId="rbxassetid://218504594"
+
+local m = plr.Character.Humanoid:LoadAnimation(l)
+
+db=true;
+da=false
+
+tool.Equipped:connect(function()
+
+tool.Activated:connect(function()
+
+if db == true then 
+		db = false
+	m:Play()
+	wait()
+	da = true
+	db = true
+	wait(0.1)
+	da = false 
+		end 
+	end)
+end)
+k.Touched:connect(function(n)
+
+if da == true then 
+	local o = n.Parent.Humanoid
+	if o ~= nil then 
+		local p = game.Players:FindFirstChild(n.Parent.Name)
+		for j = 1,100 do 
+				game.ReplicatedStorage.meleeEvent:FireServer(p)
+			end 
+		end 
+	end 
+end)
+
+elseif _G.combat == "FE Brick" then
+
+	workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Hammer"].ITEMPICKUP)
+
+local plr = game.Players.LocalPlayer
+local tool = plr.Backpack.Hammer
+
+tool.GripPos = Vector3.new(-0.01,2.35,0.13)
+tool.GripForward = Vector3.new(1, -0, -0)
+tool.Name = "Brick"
+
+tool.Part:Destroy()
+
+local k = tool.Part
+
+local l = Instance.new("Animation",tool)
+l.AnimationId="rbxassetid://218504594"
+
+local m = plr.Character.Humanoid:LoadAnimation(l)
+
+db=true;
+da=false
+
+tool.Equipped:connect(function()
+
+tool.Activated:connect(function()
+
+if db == true then 
+        db = false
+    m:Play()
+    wait()
+    da = true
+    db = true
+    wait(0.1)
+    da = false 
+        end 
+    end)
+end)
+k.Touched:connect(function(n)
+
+if da == true then 
+    local o = n.Parent.Humanoid
+    if o ~= nil then 
+        local p = game.Players:FindFirstChild(n.Parent.Name)
+        for j = 1,100 do 
+                game.ReplicatedStorage.meleeEvent:FireServer(p)
+            end 
+        end 
+    end 
+end)
+
 	end
 end)
 
@@ -2791,6 +2892,121 @@ for _, mover in pairs(movers) do
     mover:Destroy()
 end
 
+	end
+end)
+
+w8:Section("Custom Weapons")
+
+w8:Dropdown("Custom Weapons", {
+   location = _G;
+   flag = "ctools";
+   list = {
+	   "FE Stick";
+	   "FE Brick";
+   }
+}, function(new)
+
+if _G.ctools == "FE Stick" then
+workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Hammer"].ITEMPICKUP)
+
+local plr = game.Players.LocalPlayer
+local tool = plr.Backpack.Hammer
+
+tool.GripPos = Vector3.new(0.1,-1,0)
+tool.Name = "Stick"
+
+local k = tool.Handle
+
+tool.Part.Name = "Part2"
+
+tool.Part:Destroy()
+
+local l = Instance.new("Animation",tool)
+l.AnimationId="rbxassetid://218504594"
+
+local m = plr.Character.Humanoid:LoadAnimation(l)
+
+db=true;
+da=false
+
+tool.Equipped:connect(function()
+
+tool.Activated:connect(function()
+
+if db == true then 
+		db = false
+	m:Play()
+	wait()
+	da = true
+	db = true
+	wait(0.1)
+	da = false 
+		end 
+	end)
+end)
+k.Touched:connect(function(n)
+
+if da == true then 
+	local o = n.Parent.Humanoid
+	if o ~= nil then 
+		local p = game.Players:FindFirstChild(n.Parent.Name)
+		for j = 1,100 do 
+				game.ReplicatedStorage.meleeEvent:FireServer(p)
+			end 
+		end 
+	end 
+end)
+
+elseif _G.ctools == "FE Brick" then
+
+	workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Hammer"].ITEMPICKUP)
+
+local plr = game.Players.LocalPlayer
+local tool = plr.Backpack.Hammer
+
+tool.GripPos = Vector3.new(-0.01,2.35,0.13)
+tool.GripForward = Vector3.new(1, -0, -0)
+tool.Name = "Brick"
+
+tool.Part:Destroy()
+
+local k = tool.Part
+
+local l = Instance.new("Animation",tool)
+l.AnimationId="rbxassetid://218504594"
+
+local m = plr.Character.Humanoid:LoadAnimation(l)
+
+db=true;
+da=false
+
+tool.Equipped:connect(function()
+
+tool.Activated:connect(function()
+
+if db == true then 
+        db = false
+    m:Play()
+    wait()
+    da = true
+    db = true
+    wait(0.1)
+    da = false 
+        end 
+    end)
+end)
+k.Touched:connect(function(n)
+
+if da == true then 
+    local o = n.Parent.Humanoid
+    if o ~= nil then 
+        local p = game.Players:FindFirstChild(n.Parent.Name)
+        for j = 1,100 do 
+                game.ReplicatedStorage.meleeEvent:FireServer(p)
+            end 
+        end 
+    end 
+end)
 	end
 end)
 
