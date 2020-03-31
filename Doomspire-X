@@ -1,5 +1,5 @@
 --// Modified Library //--
-local library = loadstring(game:HttpGet("https://pastebin.com/raw/eWKgbdix", true))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sjorbiia/X-Scripts/master/UILibrary", true))()
 
 --// Settings //--
 library.options.underlinecolor = "rainbow"
@@ -195,9 +195,6 @@ else
 	game.Players.LocalPlayer.Backpack.Sword.Handle.Size=Vector3.new(1, 0.8, 4)
 	end
 end)
-
-
-w3:Section("More when Decompiler is out.")
 
 local w4 = library:CreateWindow('Scripts')
 
