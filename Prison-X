@@ -1,5 +1,5 @@
 --// Modified Library //--
-local library = loadstring(game:HttpGet("https://pastebin.com/raw/eWKgbdix", true))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sjorbiia/X-Scripts/master/UILibrary", true))()
 
 --// Settings //--
 library.options.underlinecolor = "rainbow"
