@@ -2,15 +2,24 @@
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sjorbiia/X-Scripts/master/UILibrary", true))()
 
 --// Settings //--
-minimalist = false
+SwatGamepass = false
+SmallerItemsTab = true
 library.options.underlinecolor = "rainbow"
+
+--// Customization //--
+RemoveFunctionsTab = false
+RemoveItemsTab = false
+RemoveCharacterTab = false
+RemoveTeamsTab = false
+RemoveToolsTab = false
+RemoveModsTab = false
+RemoveTeleportsTab = false
 
 --// Version //--
 local version = "V3.5 Experimental"
 
-if not minimalist == true then
-
 --//First Window//--
+if not RemoveFunctionsTab == true then
 local w = library:CreateWindow('Functions')
 w:Section('Remove/Restore')
 local t = w:Toggle("Doors", {flag = "toggle1"}, function()
@@ -261,6 +270,7 @@ game:GetService("Workspace").Prison_OuterWall.prison_wall.Model.Parent = L
     L.Part.Parent = PGB
     L.Part.Parent = PGB
     L.Model.Parent = PGB
+    L.PGBGlass.Parent = PGB
     L.Model.Parent = game:GetService("Workspace").Prison_OuterWall.prison_wall
 end
 end
@@ -281,20 +291,22 @@ if w.flags.toggle6 then
     game.Lighting.BOUNDARY.Parent = workspace
 end
 end)
-
-
+end
 
 --//Second Window//--
+if not RemoveItemsTab == true then
+
 local w2 = library:CreateWindow('Items')
 
 w2:Section('Givers')
 
+if not SmallerItemsTab then
+if SwatGamepass == true then
 w2:Dropdown("Guns", {
    location = _G;
    flag = "guns";
    list = {
        "All";
-       "All Non Gamepass";
        'M4A1';
        'AK-47';
        'Remington 870';
@@ -305,11 +317,6 @@ w2:Dropdown("Guns", {
    if _G.guns == "All" then
 	   Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["M4A1"].ITEMPICKUP)
 	   Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["AK-47"].ITEMPICKUP)
-	   Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
-       Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
-       
-	   else if _G.guns == "All Non Gamepass" then
-       Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["AK-47"].ITEMPICKUP)
 	   Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
        Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
 
@@ -324,12 +331,11 @@ w2:Dropdown("Guns", {
 
 	   else if _G.guns == "M9" then
        Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
-	   					end
-					end
+	   				end
 				end
 			end
 		end
-    end
+	end
 end)
 
 w2:Dropdown("Tools", {
@@ -343,18 +349,135 @@ w2:Dropdown("Tools", {
 }, function(new)
 
    if _G.tools == "Riot Shield" then
-	   Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["Riot Shield"].ITEMPICKUP)
-       
-	   else if _G.tools == "Crude Knife" then
-Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Crude Knife"].ITEMPICKUP)
+      if game:GetService("Players").LocalPlayer.Team == game:GetService("Teams")["Inmates"] then
+Workspace.Remote.TeamEvent:FireServer("Bright blue")
+Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Riot Shield"].ITEMPICKUP)
+Workspace.Remote.TeamEvent:FireServer("Bright orange")
+else
+Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Riot Shield"].ITEMPICKUP)
+end       
 
+    if _G.tools == "Crude Knife" then
+        if game:GetService("Players").LocalPlayer.Team == game:GetService("Teams")["Guards"] then
+Workspace.Remote.TeamEvent:FireServer("Bright orange")
+Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Crude Knife"].ITEMPICKUP)
+Workspace.Remote.TeamEvent:FireServer("Bright blue")
+else
+Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Crude Knife"].ITEMPICKUP)
+end
 	   else if _G.tools == "Hammer" then
+        if game:GetService("Players").LocalPlayer.Team == game:GetService("Teams")["Guards"] then
+Workspace.Remote.TeamEvent:FireServer("Bright orange")
 	   Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Hammer"].ITEMPICKUP)
+Workspace.Remote.TeamEvent:FireServer("Bright blue")
+else
+Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Hammer"].ITEMPICKUP)
+                end
 			end
 		end
     end
 end)
+else
+w2:Dropdown("Guns", {
+   location = _G;
+   flag = "guns";
+   list = {
+       "All";
+       'AK-47';
+       'Remington 870';
+       'M9';
+   }
+}, function(new)
 
+   if _G.guns == "All" then
+	   Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["AK-47"].ITEMPICKUP)
+	   Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
+       Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
+	   
+	   else if _G.guns == "AK-47" then
+       Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["AK-47"].ITEMPICKUP)
+
+	   else if _G.guns == "Remington 870" then
+       Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
+
+	   else if _G.guns == "M9" then
+       Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
+	   			end
+			end
+		end
+	end
+end)
+
+w2:Dropdown("Tools", {
+   location = _G;
+   flag = "tools";
+   list = {
+       "Crude Knife";
+       'Hammer';
+   }
+}, function(new)
+       
+    if _G.tools == "Crude Knife" then
+        if game:GetService("Players").LocalPlayer.Team == game:GetService("Teams")["Guards"] then
+Workspace.Remote.TeamEvent:FireServer("Bright orange")
+Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Crude Knife"].ITEMPICKUP)
+Workspace.Remote.TeamEvent:FireServer("Bright blue")
+else
+Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Crude Knife"].ITEMPICKUP)
+end
+	   else if _G.tools == "Hammer" then
+        if game:GetService("Players").LocalPlayer.Team == game:GetService("Teams")["Guards"] then
+Workspace.Remote.TeamEvent:FireServer("Bright orange")
+	   Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Hammer"].ITEMPICKUP)
+Workspace.Remote.TeamEvent:FireServer("Bright blue")
+else
+Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Hammer"].ITEMPICKUP)
+            end
+		end
+    end
+end)
+end
+else
+if SwatGamepass == true then
+w2:Button("Give All Items", function()
+Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["M4A1"].ITEMPICKUP)
+Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["AK-47"].ITEMPICKUP)
+Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
+Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
+        if game:GetService("Players").LocalPlayer.Team == game:GetService("Teams")["Guards"] then
+Workspace.Remote.TeamEvent:FireServer("Bright orange")
+	   Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Crude Knife"].ITEMPICKUP)
+	   Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Hammer"].ITEMPICKUP)
+Workspace.Remote.TeamEvent:FireServer("Bright blue")
+else
+Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Crude Knife"].ITEMPICKUP)
+Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Hammer"].ITEMPICKUP)
+        if game:GetService("Players").LocalPlayer.Team == game:GetService("Teams")["Inmates"] then
+Workspace.Remote.TeamEvent:FireServer("Bright blue")
+Workspace.Remote.ItemHandler:InvokeServer(game:GetService("Workspace")["Prison_ITEMS"].giver["Riot Shield"].ITEMPICKUP)
+Workspace.Remote.TeamEvent:FireServer("Bright orange")
+else
+Workspace.Remote.ItemHandler:InvokeServer(game:GetService("Workspace")["Prison_ITEMS"].giver["Riot Shield"].ITEMPICKUP)
+end
+end
+end)
+else
+w2:Button("Give All Items", function()
+Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["AK-47"].ITEMPICKUP)
+Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
+Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.giver["M9"].ITEMPICKUP)
+        if game:GetService("Players").LocalPlayer.Team == game:GetService("Teams")["Guards"] then
+Workspace.Remote.TeamEvent:FireServer("Bright orange")
+	   Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Crude Knife"].ITEMPICKUP)
+	   Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Hammer"].ITEMPICKUP)
+Workspace.Remote.TeamEvent:FireServer("Bright blue")
+else
+Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Crude Knife"].ITEMPICKUP)
+Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Hammer"].ITEMPICKUP)
+end
+end)
+end
+end
 w2:Section('Will Lose Tools')
 
 local t = w2:Toggle("Spawn M9/Card", {flag = "itemspawn"}, function()
@@ -767,6 +890,7 @@ Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.single["Hammer"
 	end
 end)
 
+if SwatGamepass == true then
 w2:Section('Clothing Givers')
 
 w2:Dropdown("Hats", {
@@ -806,8 +930,12 @@ w2:Dropdown("Armor", {
 	  Workspace.Remote.ItemHandler:InvokeServer(Workspace.Prison_ITEMS.clothes["Riot Police"].ITEMPICKUP)
     end
 end)
+end
+end
 
 --//Window 3//--
+if not RemoveCharacterTab == true then
+
 w3 = library:CreateWindow('Character')
 
 w3:Section('Movement')
@@ -847,8 +975,34 @@ w3:Button('Walkspeed Default: 16')
 
 w3:Button('Jump Height Default: 50')
 
+w3:Section('Camera')
+
+local s = w3:Slider("FOV", {
+   min = math.floor(workspace.CurrentCamera.FieldOfView);
+   max = 150;
+   flag = 'fov'
+}, function(v)
+   workspace.CurrentCamera.FieldOfView = v;
+end)
+
+local b2 = w3:Button('Reset FOV', function()
+   s:Set(70)
+end)
+
+w3:Bind("Quick Respawn", {
+   flag = "keybind";
+   kbonly = true;
+   default = Enum.KeyCode.RightAlt;
+}, function()
+   local A_1 = "\66\114\111\121\111\117\98\97\100\100"
+local Event = game:GetService("Workspace").Remote.loadchar
+Event:InvokeServer(A_1)
+end)
+end
 
 --//Window 4//--
+if not RemoveTeamsTab == true then
+
 w4 = library:CreateWindow('Teams')
 
 w4:Dropdown("Teams", {
@@ -909,30 +1063,10 @@ Workspace.Remote.TeamEvent:FireServer("Medium stone grey")
 		end
 	end
 end)
+end
 
-w3:Section('Camera')
-
-local s = w3:Slider("FOV", {
-   min = math.floor(workspace.CurrentCamera.FieldOfView);
-   max = 150;
-   flag = 'fov'
-}, function(v)
-   workspace.CurrentCamera.FieldOfView = v;
-end)
-
-local b2 = w3:Button('Reset FOV', function()
-   s:Set(70)
-end)
-
-w3:Bind("Quick Respawn", {
-   flag = "keybind";
-   kbonly = true;
-   default = Enum.KeyCode.RightAlt;
-}, function()
-   local A_1 = "\66\114\111\121\111\117\98\97\100\100"
-local Event = game:GetService("Workspace").Remote.loadchar
-Event:InvokeServer(A_1)
-end)
+--// Window 5 //--
+if not RemoveToolsTab then
 
 w5 = library:CreateWindow('Tools')
 
@@ -1736,7 +1870,9 @@ meleeRemote:FireServer(plr)
 		end
 	end
 end)
+end
 
+if not RemoveModsTab == true then
 w8 = library:CreateWindow('Mods')
 
 w8:Section('Gun Mods')
@@ -3116,6 +3252,9 @@ tool2 = plr.Backpack["SpearP2"]
 tool.Parent = plr.Character
 tool2.Parent = plr.Character
 end)
+end
+--// Window 6 //--
+if not RemoveTeleportsTab then
 
 w6 = library:CreateWindow('Teleports')
 
@@ -3330,6 +3469,7 @@ w6:Dropdown("Prison Teleports", {
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-346.244385, 84.2401428, 1969.84436, 0.778033614, 2.63457185e-08, 0.628223062, -1.97384349e-08, 1, -1.74914891e-08, -0.628223062, 1.20882515e-09, 0.778033614)
 	end
 end)
+end
 
 w7 = library:CreateWindow("Other")
 
@@ -3348,279 +3488,3 @@ w7:Section('Options')
 b = w7:Button('Destroy GUI', function()
 game.CoreGui.ScreenGui:Destroy()
 end)
-
-else
-
---//First Window//--
-local w = library:CreateWindow('Functions')
-w:Section('Remove/Restore')
-local t = w:Toggle("Doors", {flag = "toggle1"}, function()
-if w.flags.toggle1 then
-game.Workspace.Doors.Parent = game.Lighting
-game.Workspace.Prison_Cellblock.doors.Parent = game.Lighting
-    else
-    game.Lighting.Doors.Parent = game.workspace
-  	game.Lighting.doors.Parent = workspace.Prison_Cellblock
-end
-end)
-
-local t = w:Toggle("Fences", {flag = "toggle2"}, function()
-if w.flags.toggle2 then
-    game.Workspace.Prison_Fences.Parent = game.Lighting
-    else
-    game.Lighting.Prison_Fences.Parent = game.workspace
-end
-end)
-
-local t = w:Toggle("Outer Walls", {flag = "toggle3"}, function()
-if w.flags.toggle3 then
-    game.workspace.Prison_OuterWall.prison_wall.Parent = game.Lighting
-    else
-    game.Lighting.prison_wall.Parent = game.workspace.Prison_OuterWall
-end
-end)
-
-local t = w:Toggle("Guard Towers", {flag = "toggle4"}, function()
-if w.flags.toggle4 then
-    for i = 1,6 do
-    game.workspace.Prison_OuterWall.Prison_guardtower.Parent = game.Lighting
-end
-	else
-    for i = 1,6 do
-    game.Lighting.Prison_guardtower.Parent = workspace.Prison_OuterWall
-	end
-end
-end)
-
-local function destroyinnerwalls(trueorfalse)
-if trueorfalse == true then
-L = game.Lighting
-PH = workspace.Prison_Halls
-PGO = workspace.Prison_Guard_Outpost
-PA = workspace.Prison_Administration
-PCB = workspace.Prison_Cellblock
-CFT = workspace.Prison_Cafeteria
-GA = workspace.Garages
-PGB = workspace.GuardBooth
-PH.walls.Parent = game.Lighting
-PH.lights.Parent = game.Lighting
-PH.roof.Parent = game.Lighting
-PH.glass.Parent = game.Lighting
-PGO.doorwindow.Parent = game.Lighting
-PGO.wall.Parent = game.Lighting
-PGO.lights.Parent = game.Lighting
-PGO.wallsegment.Parent = game.Lighting
-PGO.wallsegment.Parent = game.Lighting
-PGO.wallsegment.Parent = game.Lighting
-PGO.wallsegment.Parent = game.Lighting
-PGO.wallsegment.Parent = game.Lighting
-PGO.wallsegment.Parent = game.Lighting
-PGO.wallsegment.Parent = game.Lighting
-PGO.part.Parent = game.Lighting
-PGO.Part.Parent = game.Lighting
-PA.walls.Parent = game.Lighting
-PA.Part.Parent = game.Lighting
-PA.Part.Parent = game.Lighting
-PA.Part.Parent = game.Lighting
-PA.trim.Parent = game.Lighting
-PA.trim.Parent = game.Lighting
-PA.trimboi.Parent = game.Lighting
-PA.front.Parent = game.Lighting
-PCB.b_front.Parent = game.Lighting
-PCB.b_wall.Parent = game.Lighting
-PCB.c_wall.Parent = game.Lighting
-PCB.a_walls.Parent = game.Lighting
-PCB.a_front.Parent = game.Lighting
-PCB.c_ceiling.Parent = game.Lighting
-PCB.a_ceiling.Parent = game.Lighting
-PCB.b_ceiling.Parent = game.Lighting
-PCB.a_outerwall.Parent = game.Lighting
-PCB.b_outerwall.Parent = game.Lighting
-PCB.a_lights.Parent = game.Lighting
-PCB.b_lights.Parent = game.Lighting
-PCB.c_lights.Parent = game.Lighting
-PCB.Wedge.Parent = game.Lighting
-PCB.Wedge.Parent = game.Lighting
-CFT.building.Parent = game.Lighting
-CFT.lights.Parent = game.Lighting
-CFT.glassdividers.Parent = game.Lighting
-CFT.Wedge.Parent = L
-CFT.Wedge.Parent = L
-CFT.Wedge.Parent = L
-PCB.c_hallwall.Parent = L
-PCB.c_hallwall.Parent = L
-PCB.c_hallwall.Parent = L
-PCB.c_hallwall.Parent = L
-PCB.c_corner.Parent = L
-PCB.c_corner.Parent = L
-PCB.c_corner.Parent = L
-PCB.c_corner.Parent = L
-PCB.c_glass.Parent = L
-CFT.Floor.Parent = L
-CFT.Floor.Parent = L
-CFT.Floor.Parent = L
-CFT.Floor.Parent = L
-CFT.Model.Parent = L
-CFT.Model.Parent = L
-CFT.glass.Parent = L
-PGO.window.Parent = L
-PA.light_floor1.Parent = L
-PA.light_floor2.Parent = L
-PA.Part.Parent = L
-GA.Parent = L
-PGB.Prison_bollards.Parent = L
-PGB.Wedge.Parent = L
-PGB.Wedge.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Stonewall.Parent = L
-PGB.Part.Parent = L
-PGB.Part.Parent = L
-PGB.Model.Parent = L
-game:GetService("Workspace").Prison_OuterWall.prison_wall.Model.Parent = L
-    else
-    L = game.Lighting
-    PH = workspace.Prison_Halls
-    PGO = workspace.Prison_Guard_Outpost
-    PA = workspace.Prison_Administration
-    PCB = workspace.Prison_Cellblock
-    CFT = workspace.Prison_Cafeteria
-    GA = L.Garages
-    PGB = workspace.GuardBooth
-    L.walls.Parent = PH
-    L.lights.Parent = PH
-    L.roof.Parent = PH
-    L.glass.Parent = PH
-    L.doorwindow.Parent = PGO
-    L.wall.Parent = PGO
-    L.lights.Parent = PGO
-    L.wallsegment.Parent = PGO
-    L.wallsegment.Parent = PGO
-    L.wallsegment.Parent = PGO
-    L.wallsegment.Parent = PGO
-    L.wallsegment.Parent = PGO
-    L.wallsegment.Parent = PGO
-    L.wallsegment.Parent = PGO
-    L.part.Parent = PGO
-    L.Part.Parent = PGO
-    L.walls.Parent = PA
-    L.Part.Parent = PA
-    L.Part.Parent = PA
-    L.Part.Parent = PA
-    L.trim.Parent = PA
-    L.trim.Parent = PA
-    L.trimboi.Parent = PA
-    L.front.Parent = PA
-    L.b_front.Parent = PCB
-    L.b_wall.Parent = PCB
-    L.c_wall.Parent = PCB
-    L.a_walls.Parent = PCB
-    L.a_front.Parent = PCB
-    L.c_ceiling.Parent = PCB
-    L.a_ceiling.Parent = PCB
-    L.b_ceiling.Parent = PCB
-    L.a_outerwall.Parent = PCB
-    L.b_outerwall.Parent = PCB
-    L.a_lights.Parent = PCB
-    L.b_lights.Parent = PCB
-    L.c_lights.Parent = PCB
-    L.Wedge.Parent = PCB
-    L.Wedge.Parent = PCB
-    L.building.Parent = CFT
-    L.lights.Parent = CFT
-    L.glassdividers.Parent = CFT
-    L.Wedge.Parent = CFT
-    L.Wedge.Parent = CFT
-    L.Wedge.Parent = CFT
-    L.c_hallwall.Parent = PCB
-    L.c_hallwall.Parent = PCB
-    L.c_hallwall.Parent = PCB
-    L.c_hallwall.Parent = PCB
-    L.c_corner.Parent = PCB
-    L.c_corner.Parent = PCB
-    L.c_corner.Parent = PCB
-    L.c_corner.Parent = PCB
-    L.c_glass.Parent = PCB
-    L.Floor.Parent = CFT
-    L.Floor.Parent = CFT
-    L.Floor.Parent = CFT
-    L.Floor.Parent = CFT
-    L.Model.Parent = CFT
-    L.Model.Parent = CFT
-    L.glass.Parent = CFT
-    L.window.Parent = PGO
-    L.light_floor1.Parent = PA
-    L.light_floor2.Parent = PA
-    L.Part.Parent = PA
-    GA.Parent = workspace
-    L.Prison_bollards.Parent = PGB
-    L.Wedge.Parent = PGB
-    L.Wedge.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Stonewall.Parent = PGB
-    L.Part.Parent = PGB
-    L.Part.Parent = PGB
-    L.Model.Parent = PGB
-    L.Model.Parent = game:GetService("Workspace").Prison_OuterWall.prison_wall
-end
-end
-
-local t = w:Toggle("Inner Walls", {flag = "INNERWALLS"}, function()
-if w.flags.INNERWALLS then
-    destroyinnerwalls(true)
-else
-    
-    destroyinnerwalls(false)
-end
-end)
-
-local t = w:Toggle("Boundaries", {flag = "toggle6"}, function()
-if w.flags.toggle6 then
-    workspace.BOUNDARY.Parent = game.Lighting
-    else
-    game.Lighting.BOUNDARY.Parent = workspace
-end
-end)
-
-end
