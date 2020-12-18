@@ -1,3 +1,137 @@
+--// Loadstring: loadstring(game:HttpGet("https://raw.githubusercontent.com/Sjorbiia/X-Scripts/master/Prison-X%20Library", true))() //--
+
+--[[
+
+This is a list of every function.
+
+Remove/Restore functions
+
+-- rem = remove
+-- res = restore
+
+pxlb:remdoors()
+
+pxlb:resdoors()
+
+pxlb:remfences()
+
+pxlb:resfences()
+
+pxlb:remouwalls()
+
+pxlb:resouwalls()
+
+pxlb:remgtowers()
+
+pxlb:resgtowers()
+
+pxlb:reminwalls()
+
+pxlb:resinwalls()
+
+pxlb:rembnd()
+
+pxlb:resbnd()
+
+Items
+
+-- gp = gamepass, this will not give you it for free.
+-- ngp = non gamepass
+
+pxlb:allgunsgp()
+
+pxlb:allgunsngp()
+
+pxlb:getm4a1()
+
+pxlb:getak47()
+
+pxlb:getreming()
+
+pxlb:getm9()
+
+pxlb:allpritemsgp()
+
+pxlb:allpritemsngp()
+
+pxlb:getriotshield()
+
+pxlb:getcrudeknife()
+
+pxlb:gethammer()
+
+pxlb:allitemsgp()
+
+pxlb:allitemsngp()
+
+pxlb:spawnm9orcard()
+
+pxlb:getcopitems()
+
+pxlb:modallgunsgp()
+
+pxlb:modallgunsngp()
+
+pxlb:modm4a1()
+
+pxlb:modak47()
+
+pxlb:modreming()
+
+pxlb:modm9()
+
+pxlb:modtaser()
+
+Character
+
+pxlb:quickrespawn()
+
+Teams
+
+pxlb:guardsteam()
+
+pxlb:inmatesteam()
+
+pxlb:criminalsteam()
+
+pxlb:neutralteam()
+
+Tools
+
+pxlb:superpunch()
+
+pxlb:noarrestcd()
+
+pxlb:clickarrest()
+
+pxlb:arrestcrims()
+
+pxlb:tazeall() -- You need a taser for this.
+
+pxlb:killall()
+
+pxlb:infjump()
+
+pxlb:btools()
+
+pxlb:tptool()
+
+pxlb:ctrltp()
+
+pxlb:fly()
+
+pxlb:killaura()
+
+Custom Weapons (not FE but they still kill)
+
+pxlb:getstick()
+
+pxlb:getbrick()
+
+pxlb:gethellbringer()
+
+]]--
+
 local pxlb = {}
 
 --// Remove/Restore //--
