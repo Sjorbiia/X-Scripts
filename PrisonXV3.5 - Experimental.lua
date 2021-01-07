@@ -54,6 +54,7 @@ local library =
 SwatGamepass = wset.flags.sgf
 SmallerItemsTab = wset.flags.smita
 QuickModGuns = wset.flags.qgnmds
+--// Rainbow, Red, Orange, Yellow, Green, Teal, Blue, Purple, Pink //--
 
 --// Customization //--
 RemoveFunctionsTab = false
@@ -390,6 +391,7 @@ if not RemoveFunctionsTab == true then
             end
         end
     )
+
 end
 
 --//Second Window//--
@@ -1500,6 +1502,54 @@ end
             end
         )
     end
+
+w2:Section("Other")
+
+w2:Button("Delete Dropped Items", function()
+
+local heartbeat = game:GetService("RunService").Heartbeat
+spawn(function()
+    while true do heartbeat:Wait()
+            game.Players.LocalPlayer.MaximumSimulationRadius = math.pow(math.huge,math.huge)*math.huge
+            sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.pow(math.huge,math.huge)*math.huge)
+            game:GetService("RunService").Stepped:wait()
+end
+end)
+
+	local LocalPlayer = game:GetService("Players").LocalPlayer -- Your local player
+
+	local unanchoredparts7 = {} -- Get the anchored parts in the table
+
+	local movers = {} -- Put the body position in the table
+
+			-- add the unanchored parts in the table and clear them
+			for index, part in pairs(workspace:GetDescendants()) do
+				if part:IsA("BasePart") and part.Anchored == false and part:IsDescendantOf(LocalPlayer.Character) == false then
+					part.CanCollide = false
+			table.insert(unanchoredparts7, part)
+			if part:FindFirstChildOfClass("BodyPosition") ~= nil then
+				part:FindFirstChildOfClass("BodyPosition"):Destroy()
+			end
+		end
+	end
+	 wait(0.2)
+
+	 -- Setting for the thing work
+	for index, part in pairs(unanchoredparts7) do
+		local mover = Instance.new("BodyPosition", part)
+		table.insert(movers, mover)
+		mover.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+			end
+
+-- Clean function
+		for index, mover in pairs(movers) do
+			mover.Position = Vector3.new(0,workspace.FallenPartsDestroyHeight + 1,0)
+		end
+		wait(2)
+		for index, mover in pairs(movers) do
+			mover:Destroy()
+	end
+end)
 end
 
 --//Window 3//--
@@ -2756,6 +2806,18 @@ if not RemoveToolsTab then
             end
         end
     )
+
+w5:Toggle("High Pitched Noise", {flag = "hpntg"}, function()
+while w5.flags.hpntg do
+wait(0.05)
+for i,v in pairs(game.Workspace.Prison_guardspawn:GetDescendants()) do
+if v:IsA("Sound") then
+v:Play()
+end
+end
+end
+end)
+
 end
 
 if not RemoveModsTab == true then
@@ -5218,6 +5280,11 @@ b =
         game:GetService("CoreGui").PrisonXGUI:Destroy()
     end
 )
+
+b = w7:Button("Reload GUI", function()
+game:GetService("CoreGui").PrisonXGUI:Destroy()
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/Sjorbiia/X-Scripts/master/PrisonXV3.5%20-%20Experimental.lua'),true))()
+end)
 end)
 
 wset:Button("Cancel Loading GUI", function()
